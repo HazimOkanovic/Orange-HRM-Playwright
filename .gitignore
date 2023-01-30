@@ -1,2 +1,4 @@
 packages/
 .idea/
+App.config
+packages.config
