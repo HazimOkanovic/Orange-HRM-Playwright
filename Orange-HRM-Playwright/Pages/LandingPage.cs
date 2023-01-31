@@ -1,3 +1,4 @@
+using System.Threading;
 using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
@@ -18,6 +19,7 @@ namespace Orange_HRM_Playwright.Pages
         public LandingPage EnterUserName(string userName)
         {
             EnterText(this.userName, userName);
+            Thread.Sleep(500);
             return this;
         }
 
@@ -27,10 +29,10 @@ namespace Orange_HRM_Playwright.Pages
             return this;
         }
 
-        public HomePage ClickLoginButton()
+        public DashboardPage ClickLoginButton()
         {
             ClickElement(loginButton);
-            return new HomePage(page);
+            return new DashboardPage(page);
         }
     }
 }
