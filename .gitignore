@@ -2,3 +2,6 @@ packages/
 .idea/
 App.config
 packages.config
+bin/
+PlaywrightTests/
+chromedriver.exe

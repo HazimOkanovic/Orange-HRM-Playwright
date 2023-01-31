@@ -54,9 +54,9 @@ namespace Orange_HRM_Playwright.Pages
             }
         }
 
-        public async Task<string> GetText(ILocator locator)
+        public string GetText(ILocator locator)
         {
-            return await locator.TextContentAsync();
+            return locator.InnerTextAsync().Result;
         }
     }
 }
