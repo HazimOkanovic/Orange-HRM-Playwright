@@ -123,7 +123,7 @@
         <Compile Include="Pages\MaintenancePage.cs" />
         <Compile Include="Pages\MyInfoPage.cs" />
         <Compile Include="Pages\PerformancePage.cs" />
-        <Compile Include="Pages\PIMpage.cs" />
+        <Compile Include="Pages\PIMPage.cs" />
         <Compile Include="Pages\RecruitmentPage.cs" />
         <Compile Include="Pages\TimePage.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

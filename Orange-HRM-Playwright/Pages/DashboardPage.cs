@@ -43,6 +43,66 @@ namespace Orange_HRM_Playwright.Pages
             return GetText(pageTitle);
         }
 
+        public AdminPage ClickAdminButton()
+        {
+            ClickElement(adminButton);
+            return new AdminPage(page);
+        }
+
+        public BuzzPage ClickBuzzButton()
+        {
+            ClickElement(buzzButton);
+            return new BuzzPage(page);
+        }
+
+        public DirectoryPage ClickDirectoryButton()
+        {
+            ClickElement(directoryButton);
+            return new DirectoryPage(page);
+        }
+
+        public LeavePage ClickLeaveButton()
+        {
+            ClickElement(leaveButton);
+            return new LeavePage(page);
+        }
+
+        public MaintenancePage ClickMaintenanceButton()
+        {
+            ClickElement(maintenanceButton);
+            return new MaintenancePage(page);
+        }
+
+        public MyInfoPage ClickMyInfoButton()
+        {
+            ClickElement(myInfoButton);
+            return new MyInfoPage(page);
+        }
+
+        public PerformancePage ClickPerformanceButton()
+        {
+            ClickElement(performanceButton);
+            return new PerformancePage(page);
+        }
+
+        public PIMPage ClickPimButton()
+        {
+            ClickElement(pimButton);
+            return new PIMPage(page);
+        }
+
+        public RecruitmentPage ClickRecruitmentPage()
+        {
+            ClickElement(recruitmentButton);
+            return new RecruitmentPage(page);
+        }
+
+        public TimePage ClickTimeButton()
+        {
+            ClickElement(timeButton);
+            return new TimePage(page);
+        }
+
         public LandingPage LogOut()
         {
             ClickElement(userDropdown);
