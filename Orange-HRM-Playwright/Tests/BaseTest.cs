@@ -13,7 +13,7 @@ namespace Orange_HRM_Playwright.Tests
             var playWrightTool = await Microsoft.Playwright.Playwright.CreateAsync();
             var browser = await playWrightTool.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
             //landing = new LandingPage(await browser.NewPageAsync());
-            //await landing.GotoAsync("https://klika-uptime-2022.herokuapp.com/");
+            //await landing.GotoAsync("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         }
 
         [OneTimeTearDown]
