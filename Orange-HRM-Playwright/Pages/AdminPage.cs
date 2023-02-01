@@ -30,9 +30,9 @@ namespace Orange_HRM_Playwright.Pages
             addUserTitle = page.Locator("(//div//h6)[2]");
             userRoleDropdown = page.Locator("(//div//div[@class = 'oxd-select-text-input'])[1]");
             statusDropdown = page.Locator("(//div//div[@class = 'oxd-select-text-input'])[2]");
-            userNameInput = page.Locator("(//div//input[contains(@class, 'oxd-input--active')])[1]");
-            passwordInput = page.Locator("(//div//input[contains(@class, 'oxd-input--active')])[2]");
-            passwordConfirmInput = page.Locator("(//div//input[contains(@class, 'oxd-input--active')])[3]");
+            userNameInput = page.Locator("(//div//input[contains(@class, 'oxd-input')])[2]");
+            passwordInput = page.Locator("(//div//input[contains(@class, 'oxd-input')])[3]");
+            passwordConfirmInput = page.Locator("(//div//input[contains(@class, 'oxd-input')])[4]");
             userRoleError = page.Locator("(//div//span[contains(@class, 'input-field-error')])[1]");
             employeeNameError = page.Locator("(//div//span[contains(@class, 'input-field-error')])[2]");
             statusError = page.Locator("(//div//span[contains(@class, 'input-field-error')])[3]");
@@ -71,13 +71,50 @@ namespace Orange_HRM_Playwright.Pages
         {
             ClickElement(statusDropdown);
             Thread.Sleep(300);
-            page.Locator("'Enabled'");
+            page.Locator("'Enabled'").ClickAsync();
+            return this;
+        }
+
+        public AdminPage ClickOnEmployeeName()
+        {
+            page.Locator("'Employee Name'").ClickAsync();
+            return this;
+        }
+        
+        public AdminPage ClickOnEmployeeNameSuggestion()
+        {
+            Thread.Sleep(500);
+            page.Locator("'Odis  Adalwin'").ClickAsync();
             return this;
         }
 
         public AdminPage EnterEmployeeName(string name)
         {
             page.GetByPlaceholder("Type for hints...").FillAsync(name);
+            return this;
+        }
+
+        public AdminPage ClearEmployeeName()
+        {
+            page.GetByPlaceholder("Type fod hints...").ClearAsync();
+            return this;
+        }
+
+        public AdminPage ClearPasswordField()
+        {
+            ClearField(passwordInput);
+            return this;
+        }
+
+        public AdminPage ClearUserNameField()
+        {
+            ClearField(userNameInput);
+            return this;
+        }
+
+        public AdminPage ClearPasswordConfirm()
+        {
+            ClearField(passwordConfirmInput);
             return this;
         }
 

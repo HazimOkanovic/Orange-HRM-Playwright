@@ -25,17 +25,14 @@ namespace Orange_HRM_Playwright.Pages
 
         public LandingPage EnterUserName(string userName)
         {
-            Thread.Sleep(1200);
-            EnterText(userNameInput, userName);
-            Thread.Sleep(1200);
+            page.GetByPlaceholder("Username").FillAsync(userName);
+            Thread.Sleep(1000);
             return this;
         }
 
         public LandingPage EnterPassword(string password)
         {
-            Thread.Sleep(200);
-            EnterText(passwordInput, password);
-            Thread.Sleep(500);
+            page.GetByPlaceholder("password").FillAsync(password);
             return this;
         }
 
