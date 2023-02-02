@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace Orange_HRM_Playwright
@@ -27,5 +28,19 @@ namespace Orange_HRM_Playwright
         }
 
         public static readonly string NewUserName = GenerateUsername();
+        public const string AdminPageTitle = "Admin";
+        public const string NewUserTitle = "Add User";
+        public const string InvalidEmployeeName = "Hazim Okanovic";
+        public const string Invalid = "Invalid";
+        public const string ValidEmployeeName = "Account";
+        public const string ShortUsername = "Haz";
+        public const string ShortUserNameError = "Should be at least 5 characters";
+        public const string NewRecordInvalidPassword = "SomePassword";
+
+        public const string PasswordError =
+            "Your password must contain a lower-case letter, an upper-case letter, a digit and a special character. Try a different password";
+
+        public const string NewRecordValidPassword = "SomePassword.92";
+        public const string PasswordsDontMatchError = "Passwords do not match";
     }
 }

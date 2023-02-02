@@ -84,7 +84,7 @@ namespace Orange_HRM_Playwright.Pages
         public AdminPage ClickOnEmployeeNameSuggestion()
         {
             Thread.Sleep(500);
-            page.Locator("'Odis  Adalwin'").ClickAsync();
+            page.Locator("'Account For Testing'").ClickAsync();
             return this;
         }
 

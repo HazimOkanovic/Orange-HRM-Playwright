@@ -30,7 +30,7 @@ namespace Orange_HRM_Playwright.Tests
             
             Thread.Sleep(1500);
             
-            Assert.That(adminPage.GetAdminTitle(), Is.EqualTo("Admin"));
+            Assert.That(adminPage.GetAdminTitle(), Is.EqualTo(Constants.AdminPageTitle));
         }
 
         [Test, Order(3)]
@@ -41,7 +41,7 @@ namespace Orange_HRM_Playwright.Tests
             
             Thread.Sleep(1500);
             
-            Assert.That(adminPage.GetAddUserTitle(), Is.EqualTo("Add User"));
+            Assert.That(adminPage.GetAddUserTitle(), Is.EqualTo(Constants.NewUserTitle));
         }
 
         [Test, Order(4)]
@@ -77,12 +77,12 @@ namespace Orange_HRM_Playwright.Tests
         public void AddUserInvalidEmployeeName()
         {
             adminPage
-                .EnterEmployeeName("Hazim Okanovic")
+                .EnterEmployeeName(Constants.InvalidEmployeeName)
                 .ClickOnEmployeeName();
             
             Thread.Sleep(1000);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo("Invalid"));
+            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.Invalid));
             Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
             Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
             Assert.That(adminPage.GetCustomError(4), Is.EqualTo(Constants.Required));
@@ -94,7 +94,7 @@ namespace Orange_HRM_Playwright.Tests
         {
             adminPage
                 .ClearEmployeeName()
-                .EnterEmployeeName("Odis")
+                .EnterEmployeeName(Constants.ValidEmployeeName)
                 .ClickOnEmployeeNameSuggestion();
             
             Thread.Sleep(1000);
@@ -122,12 +122,12 @@ namespace Orange_HRM_Playwright.Tests
         public void AddUserInvalidUserNameTest()
         {
             adminPage
-                .EnterUserName("Haz")
+                .EnterUserName(Constants.ShortUsername)
                 .ClickSave();
 
             Thread.Sleep(1000);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo("Should be at least 5 characters"));
+            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.ShortUserNameError));
             Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
             Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
         }
@@ -153,11 +153,11 @@ namespace Orange_HRM_Playwright.Tests
         public void AddUserInvalidPassword()
         {
             adminPage
-                .EnterPassword("SomePassword");
+                .EnterPassword(Constants.NewRecordInvalidPassword);
             
             Thread.Sleep(1000);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo("Your password must contain a lower-case letter, an upper-case letter, a digit and a special character. Try a different password"));
+            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.PasswordError));
             Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
         }
 
@@ -170,16 +170,16 @@ namespace Orange_HRM_Playwright.Tests
             Thread.Sleep(1000);
             
             adminPage
-                .EnterPassword("SomePassword.92");
+                .EnterPassword(Constants.NewRecordValidPassword);
             
             Thread.Sleep(500);
             
             adminPage
-                .EnterConfirmPassword("SomePassword.");
+                .EnterConfirmPassword(Constants.NewRecordInvalidPassword);
             
             Thread.Sleep(1000);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo("Passwords do not match"));
+            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.PasswordsDontMatchError));
         }
 
         [Test, Order(13)]
@@ -189,7 +189,7 @@ namespace Orange_HRM_Playwright.Tests
                 .ClearPasswordConfirm();
             Thread.Sleep(400);
             adminPage
-                .EnterConfirmPassword("SomePassword.92")
+                .EnterConfirmPassword(Constants.NewRecordValidPassword)
                 .ClickSave();
             
             Assert.That(adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
