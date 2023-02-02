@@ -12,6 +12,11 @@ namespace Orange_HRM_Playwright.Pages
         private readonly ILocator addButton;
         private readonly ILocator employeeId;
         private readonly ILocator addEmployeeTitle;
+        private readonly ILocator firstNameInput;
+        private readonly ILocator lastNameInput;
+        private readonly ILocator middleNameInput;
+        private readonly ILocator firstNameError;
+        private readonly ILocator personalDetails;
 
         public string NewEmployeeId;
         
@@ -24,6 +29,10 @@ namespace Orange_HRM_Playwright.Pages
             addButton = page.Locator("(//div//button[contains(@class, 'oxd-button')])[3]");
             employeeId = page.Locator("(//div//input[contains(@class, 'oxd-input')])[5]");
             addEmployeeTitle = page.Locator("(//div//h6)[2]");
+            personalDetails = page.Locator("(//div//h6)[3]");
+            firstNameInput = page.Locator("//div//input[@name='firstName']");
+            middleNameInput = page.Locator("//div//input[@name='middleName']");
+            lastNameInput = page.Locator("//div//input[@name='lastName']");
         }
         
         public string GetAdminTitle()
@@ -55,21 +64,26 @@ namespace Orange_HRM_Playwright.Pages
             return this;
         }
 
+        public string GetPersonalDetails()
+        {
+            return GetText(personalDetails);
+        }
+
         public PIMPage EnterFirstName(string firstName)
         {
-            page.GetByPlaceholder("First Name").FillAsync(firstName);
+            EnterText(firstNameInput, firstName);
             return this;
         }
 
         public PIMPage EnterMiddleName(string middleName)
         {
-            page.GetByPlaceholder("Middle Name").FillAsync(middleName);
+            EnterText(middleNameInput, middleName);
             return this;
         }
 
         public PIMPage EnterLastName(string lastName)
         {
-            page.GetByPlaceholder("Last Name").FillAsync(lastName);
+            EnterText(lastNameInput, lastName);
             return this;
         }
 
@@ -89,11 +103,34 @@ namespace Orange_HRM_Playwright.Pages
         {
             return GetText(addEmployeeTitle);
         }
+
+        public string GetFirstName()
+        {
+            return GetText(firstNameInput);
+        }
+
+        public string GetMiddleName()
+        {
+            return GetText(middleNameInput);
+        }
+
+        public string GetLastName()
+        {
+            return GetText(lastNameInput);
+        }
         
         public string GetEmployeeName(string user)
         {
             string element = "//div//div[contains(text(), '{0}')]";
             element = String.Format(element, user);
+            ILocator elementLocation = page.Locator(element);
+            return GetText(elementLocation);
+        }
+
+        public string GetCustomError(int errorNo)
+        {
+            string element = "(//div//span[contains(@class, 'input-field-error')])[{0}]";
+            element = String.Format(element, errorNo);
             ILocator elementLocation = page.Locator(element);
             return GetText(elementLocation);
         }
