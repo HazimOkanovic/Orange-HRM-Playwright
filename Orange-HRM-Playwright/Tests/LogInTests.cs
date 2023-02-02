@@ -1,5 +1,3 @@
-using System.Threading;
-using Microsoft.Playwright;
 using NUnit.Framework;
 using Orange_HRM_Playwright.Pages;
 
@@ -15,18 +13,18 @@ namespace Orange_HRM_Playwright.Tests
             landing
                 .ClickLoginButton();
             
-            Assert.That(landing.GetUserNameError(), Is.EqualTo("Required"));
-            Assert.That(landing.GetPasswordError(2), Is.EqualTo("Required"));
+            Assert.That(landing.GetUserNameError(), Is.EqualTo(Constants.Required));
+            Assert.That(landing.GetPasswordError(2), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(2)]
         public void LogInWithoutUsernameTest()
         {
             landing
-                .EnterPassword("admin123")
+                .EnterPassword(Constants.ValidPassword)
                 .ClickLoginButton();
             
-            Assert.That(landing.GetUserNameError(), Is.EqualTo("Required"));
+            Assert.That(landing.GetUserNameError(), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(3)]
@@ -34,10 +32,10 @@ namespace Orange_HRM_Playwright.Tests
         {
             landing
                 .ClearPasswordField()
-                .EnterUserName("Admin")
+                .EnterUserName(Constants.ValidUsername)
                 .ClickLoginButton();
             
-            Assert.That(landing.GetPasswordError(1), Is.EqualTo("Required"));
+            Assert.That(landing.GetPasswordError(1), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(4)]
@@ -45,11 +43,11 @@ namespace Orange_HRM_Playwright.Tests
         {
             landing
                 .ClearUsernameField()
-                .EnterUserName("Hazim")
-                .EnterPassword("admin123")
+                .EnterUserName(Constants.IncorrectUsername)
+                .EnterPassword(Constants.ValidPassword)
                 .ClickLoginButton();
             
-            Assert.That(landing.GetCredentialsError(), Is.EqualTo("Invalid credentials"));
+            Assert.That(landing.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
         }
 
         [Test, Order(5)]
@@ -58,11 +56,11 @@ namespace Orange_HRM_Playwright.Tests
             landing
                 .ClearUsernameField()
                 .ClearPasswordField()
-                .EnterUserName("Admin")
-                .EnterPassword("adminadmin")
+                .EnterUserName(Constants.ValidUsername)
+                .EnterPassword(Constants.IncorrectPassword)
                 .ClickLoginButton();
             
-            Assert.That(landing.GetCredentialsError(), Is.EqualTo("Invalid credentials"));
+            Assert.That(landing.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
         }
 
         [Test, Order(6)]
@@ -71,11 +69,11 @@ namespace Orange_HRM_Playwright.Tests
             landing
                 .ClearUsernameField()
                 .ClearPasswordField()
-                .EnterUserName("Hazim")
-                .EnterPassword("adminadmin")
+                .EnterUserName(Constants.IncorrectUsername)
+                .EnterPassword(Constants.IncorrectPassword)
                 .ClickLoginButton();
             
-            Assert.That(landing.GetCredentialsError(), Is.EqualTo("Invalid credentials"));
+            Assert.That(landing.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
         }
         
         [Test, Order(7)]
@@ -84,12 +82,12 @@ namespace Orange_HRM_Playwright.Tests
             landing
                 .ClearUsernameField()
                 .ClearPasswordField()
-                .EnterUserName("Admin")
-                .EnterPassword("admin123");
+                .EnterUserName(Constants.ValidUsername)
+                .EnterPassword(Constants.ValidPassword);
                 
             dashboardPage = landing.ClickLoginButton();
             
-            Assert.That(dashboardPage.GetTitle(), Is.EqualTo("Dashboard"));
+            Assert.That(dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
 
         [Test, Order(8)]
@@ -98,7 +96,7 @@ namespace Orange_HRM_Playwright.Tests
             dashboardPage
                 .LogOut();
             
-            Assert.That(landing.GetTitle(), Is.EqualTo("Login"));
+            Assert.That(landing.GetTitle(), Is.EqualTo(Constants.LoginTitle));
         }
     }
 }
