@@ -17,6 +17,7 @@ namespace Orange_HRM_Playwright.Pages
         private readonly ILocator middleNameInput;
         private readonly ILocator firstNameError;
         private readonly ILocator personalDetails;
+        private readonly ILocator noRecordsLabel;
 
         public string NewEmployeeId;
         
@@ -33,6 +34,7 @@ namespace Orange_HRM_Playwright.Pages
             firstNameInput = page.Locator("//div//input[@name='firstName']");
             middleNameInput = page.Locator("//div//input[@name='middleName']");
             lastNameInput = page.Locator("//div//input[@name='lastName']");
+            noRecordsLabel = page.Locator("(//div//span[@class = 'oxd-text oxd-text--span'])[1]");
         }
         
         public string GetAdminTitle()
@@ -43,6 +45,12 @@ namespace Orange_HRM_Playwright.Pages
         public PIMPage EnterEmployeeName(string employeeName)
         {
             EnterText(employeeNameInput, employeeName);
+            return this;
+        }
+
+        public PIMPage ClearEmployeeNameField()
+        {
+            ClearField(employeeNameInput);
             return this;
         }
 
@@ -58,6 +66,10 @@ namespace Orange_HRM_Playwright.Pages
             return this;
         }
 
+        public string GetNoRecordsError()
+        {
+            return GetText(noRecordsLabel);
+        }
         public PIMPage ClickAddButton()
         {
             ClickElement(addButton);

@@ -31,7 +31,7 @@ namespace Orange_HRM_Playwright.Tests
             
             Thread.Sleep(1500);
             
-            Assert.That(pimPage.GetAdminTitle(), Is.EqualTo("PIM"));
+            Assert.That(pimPage.GetAdminTitle(), Is.EqualTo(Constants.PimPageTitle));
         }
 
         [Test, Order(3)]
@@ -40,7 +40,7 @@ namespace Orange_HRM_Playwright.Tests
             pimPage
                 .ClickAddButton();
             
-            Assert.That(pimPage.GetEmployeeTitle(), Is.EqualTo("Add Employee"));
+            Assert.That(pimPage.GetEmployeeTitle(), Is.EqualTo(Constants.AddEmployeeTitle));
         }
 
         [Test, Order(4)]
@@ -67,15 +67,46 @@ namespace Orange_HRM_Playwright.Tests
         public void AddNewEmployeeTest()
         {
             pimPage
-                .EnterMiddleName("Hazim");
+                .EnterMiddleName(Constants.IncorrectUsername);
                 Thread.Sleep(500);
-                pimPage.EnterLastName("Okanovic")
-                .GetEmployeeId();
-            pimPage
+                pimPage.EnterLastName(Constants.LastName);
+                pimPage
                 .ClickSave();
             Thread.Sleep(4000);
+            pimPage.GetEmployeeId();
             
-            Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo("Personal Details"));
+            Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
+        }
+
+        [Test, Order(7)]
+        public void EmptySearchTest()
+        {
+            dashboardPage
+                .ClickPimButton()
+                .EnterEmployeeName(Constants.FakeEmployeeName);
+                Thread.Sleep(1000);
+                pimPage.ClickSearch();
+            Thread.Sleep(3000);
+            Assert.That(pimPage.GetNoRecordsError(), Is.EqualTo(Constants.NoRecords));
+        }
+        [Test, Order(8)]
+        public void SearchWithEmployeeName()
+        {
+            pimPage
+                .ClearEmployeeNameField()
+                .EnterEmployeeName(Constants.NewUserName)
+                .ClickSearch();
+            
+            Assert.That(pimPage.GetEmployeeName(Constants.NewUserName), Is.EqualTo(Constants.NewUserName + " " + Constants.IncorrectUsername));
+        } 
+        
+        [Test, Order(9)]
+        public void GoToEmployeeDetails()
+        {
+            pimPage
+                .ClickOnEmployeeName(Constants.NewUserName);
+            
+            Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
         }
     }
 }
