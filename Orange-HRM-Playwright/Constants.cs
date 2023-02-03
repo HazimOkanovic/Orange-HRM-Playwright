@@ -42,5 +42,11 @@ namespace Orange_HRM_Playwright
 
         public const string NewRecordValidPassword = "SomePassword.92";
         public const string PasswordsDontMatchError = "Passwords do not match";
+        public const string PimPageTitle = "PIM";
+        public const string AddEmployeeTitle = "Add Employee";
+        public const string LastName = "Okanovic";
+        public const string PersonalDetails = "Personal Details";
+        public const string FakeEmployeeName = "Dacesin";
+        public const string NoRecords = "No Records Found";
     }
 }

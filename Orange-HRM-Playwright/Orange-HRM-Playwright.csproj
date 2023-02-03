@@ -130,6 +130,7 @@
         <Compile Include="Tests\AdminTests.cs" />
         <Compile Include="Tests\BaseTest.cs" />
         <Compile Include="Tests\LogInTests.cs" />
+        <Compile Include="Tests\PimTests.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Components" />
