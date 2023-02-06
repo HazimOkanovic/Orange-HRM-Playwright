@@ -31,7 +31,7 @@ namespace Orange_HRM_Playwright.Tests
             
             Thread.Sleep(1500);
             
-            Assert.That(pimPage.GetAdminTitle(), Is.EqualTo(Constants.PimPageTitle));
+            Assert.That(pimPage.GetPimTitle(), Is.EqualTo(Constants.PimPageTitle));
         }
 
         [Test, Order(3)]
