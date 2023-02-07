@@ -37,7 +37,7 @@ namespace Orange_HRM_Playwright.Pages
             noRecordsLabel = page.Locator("(//div//span[@class = 'oxd-text oxd-text--span'])[1]");
         }
         
-        public string GetAdminTitle()
+        public string GetPimTitle()
         {
             return GetText(pageTitle);
         }

@@ -32,7 +32,7 @@ namespace Orange_HRM_Playwright
         public const string NewUserTitle = "Add User";
         public const string InvalidEmployeeName = "Hazim Okanovic";
         public const string Invalid = "Invalid";
-        public const string ValidEmployeeName = "Account";
+        public const string ValidEmployeeName = "Fiona";
         public const string ShortUsername = "Haz";
         public const string ShortUserNameError = "Should be at least 5 characters";
         public const string NewRecordInvalidPassword = "SomePassword";
@@ -48,5 +48,9 @@ namespace Orange_HRM_Playwright
         public const string PersonalDetails = "Personal Details";
         public const string FakeEmployeeName = "Dacesin";
         public const string NoRecords = "No Records Found";
+        public const string LeavePageTitle = "Leave";
+        public const string AssignLeaveTitle = "Assign Leave";
+        public const string ConfirmLeave = "Confirm Leave Assignment";
+        public const string LeaveList = "My Leave List";
     }
 }

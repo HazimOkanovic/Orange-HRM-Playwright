@@ -70,7 +70,7 @@ namespace Orange_HRM_Playwright.Pages
         public AdminPage SelectUserStatus()
         {
             ClickElement(statusDropdown);
-            Thread.Sleep(300);
+            Thread.Sleep(800);
             page.Locator("'Enabled'").ClickAsync();
             return this;
         }
@@ -83,8 +83,8 @@ namespace Orange_HRM_Playwright.Pages
         
         public AdminPage ClickOnEmployeeNameSuggestion()
         {
-            Thread.Sleep(500);
-            page.Locator("'Account For Testing'").ClickAsync();
+            Thread.Sleep(1000);
+            page.Locator("'Fiona Grace'").ClickAsync();
             return this;
         }
 
