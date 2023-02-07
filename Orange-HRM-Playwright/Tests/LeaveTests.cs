@@ -72,7 +72,7 @@ namespace Orange_HRM_Playwright.Tests
             leavePage = dashboardPage
                 .ClickLeaveButton();
             Thread.Sleep(1000);
-            Assert.That(leavePage.GetLeaveTitle(), Is.EqualTo("Leave"));
+            Assert.That(leavePage.GetLeaveTitle(), Is.EqualTo(Constants.LeavePageTitle));
         }
 
         [Test, Order(6)]
@@ -83,7 +83,66 @@ namespace Orange_HRM_Playwright.Tests
             
             Thread.Sleep(1500);
             
-            Assert.That(leavePage.GetAssignLeaveTitle(), Is.EqualTo("Assign Leave"));
+            Assert.That(leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.AssignLeaveTitle));
+        }
+
+        [Test, Order(7)]
+        public void AllFieldsEmptyTest()
+        {
+            leavePage
+                .ClickApplyButton();
+            
+            Assert.That(leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(leavePage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(leavePage.GetCustomError(4), Is.EqualTo(Constants.Required));
+        }
+
+        [Test, Order(8)]
+        public void EnterOneFieldTest()
+        {
+            leavePage
+                .EnterEmployeeName(Constants.ValidEmployeeName)
+                .ClickOnEmployeeNameSuggestion();
+            
+            Assert.That(leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(leavePage.GetCustomError(3), Is.EqualTo(Constants.Required));
+        }
+
+        [Test, Order(9)]
+        public void PopulateTwoFieldsTest()
+        {
+            leavePage
+                .ClickOnLeaveType()
+                .ChooseLeaveType();
+            
+            Assert.That(leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
+        }
+
+        [Test, Order(10)]
+        public void SuccessfulAssignLeaveTest()
+        {
+            leavePage
+                .ClickOnFromDate()
+                .ChooseFromDate()
+                .ClickAssignLeave();
+            
+            Assert.That(leavePage.GetCardTitle(), Is.EqualTo(Constants.ConfirmLeave));
+        }
+
+        [Test, Order(11)]
+        public void GoToMyLeaveAndCheckIfRecordSavedTest()
+        {
+            leavePage
+                .ClickOkButton()
+                .ClickMyLeave();
+            
+            Thread.Sleep(1500);
+            
+            Assert.That(leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.LeaveList));
+            Assert.That(leavePage.GetUserNameAfterSave(Constants.ValidEmployeeName), Is.EqualTo(Constants.ValidEmployeeName));
         }
     }
 }

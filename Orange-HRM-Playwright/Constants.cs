@@ -48,5 +48,9 @@ namespace Orange_HRM_Playwright
         public const string PersonalDetails = "Personal Details";
         public const string FakeEmployeeName = "Dacesin";
         public const string NoRecords = "No Records Found";
+        public const string LeavePageTitle = "Leave";
+        public const string AssignLeaveTitle = "Assign Leave";
+        public const string ConfirmLeave = "Confirm Leave Assignment";
+        public const string LeaveList = "My Leave List";
     }
 }
