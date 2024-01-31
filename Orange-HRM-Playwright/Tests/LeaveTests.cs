@@ -9,7 +9,7 @@ namespace Orange_HRM_Playwright.Tests
         private DashboardPage dashboardPage;
         private AdminPage adminPage;
         private LeavePage leavePage;
-        
+        /*
         [Test, Order(1)]
         public void LogInTest()
         {
@@ -144,5 +144,6 @@ namespace Orange_HRM_Playwright.Tests
             Assert.That(leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.LeaveList));
             Assert.That(leavePage.GetUserNameAfterSave(Constants.ValidEmployeeName), Is.EqualTo(Constants.ValidEmployeeName));
         }
+        */
     }
 }

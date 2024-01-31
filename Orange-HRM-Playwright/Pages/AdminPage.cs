@@ -1,27 +1,31 @@
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
     public class AdminPage : BasePage
     {
-        private readonly ILocator pageTitle;
-        private readonly ILocator addButton;
-        private readonly ILocator addUserTitle;
-        private readonly ILocator userRoleDropdown;
-        private readonly ILocator statusDropdown;
-        private readonly ILocator userNameInput;
-        private readonly ILocator passwordInput;
-        private readonly ILocator passwordConfirmInput;
-        private readonly ILocator userRoleError;
-        private readonly ILocator employeeNameError;
-        private readonly ILocator statusError;
-        private readonly ILocator userNameError;
-        private readonly ILocator passwordError;
-        private readonly ILocator confirmPasswordError;
-        private readonly ILocator saveButton;
-        private readonly ILocator userNameSearchField;
+        readonly ILocator pageTitle;
+        readonly ILocator addButton;
+        readonly ILocator addUserTitle;
+        readonly ILocator userRoleDropdown;
+        readonly ILocator statusDropdown;
+        readonly ILocator userNameInput;
+        readonly ILocator passwordInput;
+        readonly ILocator passwordConfirmInput;
+        readonly ILocator userRoleError;
+        readonly ILocator employeeNameError;
+        readonly ILocator statusError;
+        readonly ILocator userNameError;
+        readonly ILocator passwordError;
+        readonly ILocator confirmPasswordError;
+        readonly ILocator saveButton;
+        readonly ILocator userNameSearchField;
+        readonly ILocator employeeName;
+        readonly ILocator employeeNameSuggestion;
+        readonly ILocator employeeNameInputField;
+        readonly ILocator employeeNameForClear;
         
         public AdminPage(IPage page) : base(page)
         {
@@ -41,131 +45,117 @@ namespace Orange_HRM_Playwright.Pages
             confirmPasswordError = page.Locator("(//div//span[contains(@class, 'input-field-error')])[6]");
             saveButton = page.Locator("//div//button[@type = 'submit']");
             userNameSearchField = page.Locator("(//div//input[@class = 'oxd-input oxd-input--active'])[2]");
-        }
-
-        public string GetAdminTitle()
-        {
-            return GetText(pageTitle);
-        }
-
-        public string GetAddUserTitle()
-        {
-            return GetText(addUserTitle);
-        }
-
-        public AdminPage ClickAddUser()
-        {
-            ClickElement(addButton);
-            return this;
-        }
-
-        public AdminPage SelectUserRole()
-        {
-            ClickElement(userRoleDropdown);
-            Thread.Sleep(300);
-            page.Locator("'ESS'").ClickAsync();
-            return this;
-        }
-
-        public AdminPage SelectUserStatus()
-        {
-            ClickElement(statusDropdown);
-            Thread.Sleep(800);
-            page.Locator("'Enabled'").ClickAsync();
-            return this;
-        }
-
-        public AdminPage ClickOnEmployeeName()
-        {
-            page.Locator("'Employee Name'").ClickAsync();
-            return this;
+            employeeName = page.Locator("'Employee Name'");
+            employeeNameSuggestion = page.Locator("'Fiona Grace'");
+            employeeNameInputField = page.GetByPlaceholder("Type for hints...");
+            employeeNameForClear = page.GetByPlaceholder("Type fod hints...");
         }
         
-        public AdminPage ClickOnEmployeeNameSuggestion()
+        public async Task<string> GetAdminTitle()
         {
-            Thread.Sleep(1000);
-            page.Locator("'Fiona Grace'").ClickAsync();
-            return this;
+            return await pageTitle.InnerTextAsync();
+        }
+        
+        public async Task<string> GetAddUserTitle()
+        {
+            return await addUserTitle.InnerTextAsync();
+        }
+        
+        public async Task ClickAddUser()
+        {
+            await addButton.ClickAsync();
         }
 
-        public AdminPage EnterEmployeeName(string name)
+        public async Task  SelectUserRole()
         {
-            page.GetByPlaceholder("Type for hints...").FillAsync(name);
-            return this;
+            await userRoleDropdown.SelectOptionAsync("'ESS'");
         }
 
-        public AdminPage ClearEmployeeName()
+        public async Task SelectUserStatus()
         {
-            page.GetByPlaceholder("Type fod hints...").ClearAsync();
-            return this;
+            await statusDropdown.SelectOptionAsync("'Enabled'");
         }
 
-        public AdminPage ClearPasswordField()
+        public async Task ClickOnEmployeeName()
         {
-            ClearField(passwordInput);
-            return this;
+            await employeeName.ClickAsync();
+        }
+        
+        public async Task ClickOnEmployeeNameSuggestion()
+        {
+            await employeeNameSuggestion.ClickAsync();
         }
 
-        public AdminPage ClearUserNameField()
+        public async Task EnterEmployeeName(string name)
         {
-            ClearField(userNameInput);
-            return this;
+            await employeeNameInputField.FillAsync(name);
         }
 
-        public AdminPage ClearPasswordConfirm()
+        public async Task ClearEmployeeName()
         {
-            ClearField(passwordConfirmInput);
-            return this;
+            await employeeNameForClear.ClearAsync();
         }
 
-        public AdminPage EnterUserName(string username)
+        public async Task ClearPasswordField()
         {
-            EnterText(userNameInput, username);
-            return this;
+            await passwordInput.ClearAsync();
         }
 
-        public AdminPage EnterPassword(string password)
+        public async Task ClearUserNameField()
         {
-            EnterText(passwordInput, password);
-            return this;
+            await userNameInput.ClearAsync();
         }
 
-        public AdminPage EnterConfirmPassword(string confirmPassword)
+        public async Task ClearPasswordConfirm()
         {
-            EnterText(passwordConfirmInput, confirmPassword);
-            return this;
+            await passwordConfirmInput.ClearAsync();
         }
 
-        public string GetUserRoleError()
+        public async Task EnterUserName(string username)
         {
-            return GetText(userRoleError);
+            await userNameInput.FillAsync(username);
         }
 
-        public string GetEmployeeNameError()
+        public async Task EnterPassword(string password)
         {
-            return GetText(employeeNameError);
+            await passwordInput.FillAsync(password);
         }
 
-        public string GetStatusError()
+        public async Task EnterConfirmPassword(string confirmPassword)
         {
-            return GetText(statusError);
+            await passwordConfirmInput.FillAsync(confirmPassword);
+        }
+        
+        public async Task<string> GetUserRoleError()
+        {
+            return await userRoleError.InnerTextAsync();
         }
 
-        public string GetUserNameError()
+        public async Task<string> GetEmployeeNameError()
         {
-            return GetText(userNameError);
+            return await employeeNameError.InnerTextAsync();
         }
 
-        public string GetPasswordError()
+        public async Task<string> GetStatusError()
         {
-            return GetText(passwordError);
+            return await statusError.InnerTextAsync();
         }
 
-        public string GetConfirmPasswordError()
+        public async Task<string> GetUserNameError()
         {
-            return GetText(confirmPasswordError);
+            return await userNameError.InnerTextAsync();
         }
 
+        public async Task<string> GetPasswordError()
+        {
+            return await passwordError.InnerTextAsync();
+        }
+
+        public async Task<string> GetConfirmPasswordError()
+        {
+            return await confirmPasswordError.InnerTextAsync();
+        }
+        
         public string GetCustomError(int fieldNumber)
         {
             string element = "(//div//span[contains(@class, 'input-field-error')])[{0}]";
@@ -174,10 +164,9 @@ namespace Orange_HRM_Playwright.Pages
             return GetText(elementLocation);
         }
 
-        public AdminPage ClickSave()
+        public async Task ClickSave()
         {
-            ClickElement(saveButton);
-            return this;
+            await this.saveButton.ClickAsync();
         }
 
         public string GetUserNameAfterSave(string user)
@@ -188,10 +177,9 @@ namespace Orange_HRM_Playwright.Pages
             return GetText(elementLocation);
         }
 
-        public AdminPage EnterUsernameForSearch(string username)
+        public async Task EnterUsernameForSearch(string username)
         {
-            EnterText(userNameSearchField, username);
-            return this;
+            await userNameSearchField.FillAsync(username);
         }
     }
 }
