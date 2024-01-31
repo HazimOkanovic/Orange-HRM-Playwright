@@ -24,9 +24,9 @@ namespace Orange_HRM_Playwright.Tests
         }
 
         [Test, Order(2)]
-        public void GoToAdminPageTest()
+        public async Task GoToAdminPageTest()
         {
-            adminPage = dashboardPage.ClickAdminButton();
+            await dashboardPage.ClickAdminButton();
             
             Assert.That(adminPage.GetAdminTitle(), Is.EqualTo(Constants.AdminPageTitle));
         }

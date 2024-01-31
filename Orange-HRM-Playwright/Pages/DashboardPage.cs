@@ -38,76 +38,65 @@ namespace Orange_HRM_Playwright.Pages
             buzzButton = page.Locator("(//a//span[contains(@class, 'menu-item')])[11]");
         }
 
-        public string GetTitle()
+        public async Task<string> GetTitle()
         {
-            return GetText(pageTitle);
+            return await pageTitle.InnerTextAsync();
         }
 
-        public AdminPage ClickAdminButton()
+        public async Task ClickAdminButton()
         {
-            ClickElement(adminButton);
-            return new AdminPage(page);
+            await adminButton.ClickAsync();
         }
 
-        public BuzzPage ClickBuzzButton()
+        public async Task ClickBuzzButton()
         {
-            ClickElement(buzzButton);
-            return new BuzzPage(page);
+            await buzzButton.ClickAsync();
         }
 
-        public DirectoryPage ClickDirectoryButton()
+        public async Task ClickDirectoryButton()
         {
-            ClickElement(directoryButton);
-            return new DirectoryPage(page);
+            await directoryButton.ClickAsync();
         }
 
-        public LeavePage ClickLeaveButton()
+        public async Task ClickLeaveButton()
         {
-            ClickElement(leaveButton);
-            return new LeavePage(page);
+            await leaveButton.ClickAsync();
         }
 
-        public MaintenancePage ClickMaintenanceButton()
+        public async Task ClickMaintenanceButton()
         {
-            ClickElement(maintenanceButton);
-            return new MaintenancePage(page);
+            await maintenanceButton.ClickAsync();
         }
 
-        public MyInfoPage ClickMyInfoButton()
+        public async Task ClickMyInfoButton()
         {
-            ClickElement(myInfoButton);
-            return new MyInfoPage(page);
+            await myInfoButton.ClickAsync();
         }
 
-        public PerformancePage ClickPerformanceButton()
+        public async Task ClickPerformanceButton()
         {
-            ClickElement(performanceButton);
-            return new PerformancePage(page);
+            await performanceButton.ClickAsync();
         }
 
-        public PIMPage ClickPimButton()
+        public async Task ClickPimButton()
         {
-            ClickElement(pimButton);
-            return new PIMPage(page);
+            await pimButton.ClickAsync();
         }
 
-        public RecruitmentPage ClickRecruitmentPage()
+        public async Task ClickRecruitmentPage()
         {
-            ClickElement(recruitmentButton);
-            return new RecruitmentPage(page);
+            await recruitmentButton.ClickAsync();
         }
 
-        public TimePage ClickTimeButton()
+        public async Task ClickTimeButton()
         {
-            ClickElement(timeButton);
-            return new TimePage(page);
+            await timeButton.ClickAsync();
         }
 
-        public LandingPage LogOut()
+        public async Task LogOut()
         {
-            ClickElement(userDropdown);
-            ClickElement(logOutButton);
-            return new LandingPage(page);
+            await userDropdown.ClickAsync();
+            await logOutButton.ClickAsync();
         }
     }
 }
