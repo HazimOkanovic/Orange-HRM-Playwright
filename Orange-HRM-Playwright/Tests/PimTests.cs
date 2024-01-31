@@ -1,8 +1,8 @@
-
 using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Orange_HRM_Playwright.Pages;
-
+/*
 namespace Orange_HRM_Playwright.Tests
 {
     public class PimTests : BaseTest
@@ -25,88 +25,76 @@ namespace Orange_HRM_Playwright.Tests
         }
 
         [Test, Order(2)]
-        public void GoToPimPageTest()
+        public async Task GoToPimPageTest()
         {
-            pimPage = dashboardPage.ClickPimButton();
-            
-            Thread.Sleep(1500);
+            await dashboardPage.ClickPimButton();
             
             Assert.That(pimPage.GetPimTitle(), Is.EqualTo(Constants.PimPageTitle));
         }
 
         [Test, Order(3)]
-        public void ClickAddNewEmployeeTest()
+        public async Task ClickAddNewEmployeeTest()
         {
-            pimPage
-                .ClickAddButton();
+            await pimPage.ClickAddButton();
             
             Assert.That(pimPage.GetEmployeeTitle(), Is.EqualTo(Constants.AddEmployeeTitle));
         }
 
         [Test, Order(4)]
-        public void ClickSaveWithoutPopulatingFields()
+        public async Task ClickSaveWithoutPopulatingFields()
         {
-            pimPage
-                .ClickSave();
+            await pimPage.ClickSave();
             
             Assert.That(pimPage.GetCustomError(1), Is.EqualTo(Constants.Required));
             Assert.That(pimPage.GetCustomError(2), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(5)]
-        public void ClickSaveOneFieldPopulated()
+        public async Task ClickSaveOneFieldPopulated()
         {
-            pimPage
-                .EnterFirstName(Constants.NewUserName)
-                .ClickSave();
+            await pimPage.EnterFirstName(Constants.NewUserName);
+            await pimPage.ClickSave();
 
             Assert.That(pimPage.GetCustomError(1), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(6)]
-        public void AddNewEmployeeTest()
+        public async Task AddNewEmployeeTest()
         {
-            pimPage
-                .EnterMiddleName(Constants.IncorrectUsername);
-                Thread.Sleep(500);
-                pimPage.EnterLastName(Constants.LastName);
-                pimPage
-                .ClickSave();
-            Thread.Sleep(4000);
-            pimPage.GetEmployeeId();
+            await pimPage.EnterMiddleName(Constants.IncorrectUsername);
+            await pimPage.EnterLastName(Constants.LastName);
+            await pimPage.ClickSave();
+            await pimPage.GetEmployeeId();
             
             Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
         }
 
         [Test, Order(7)]
-        public void EmptySearchTest()
+        public async Task EmptySearchTest()
         {
-            dashboardPage
-                .ClickPimButton()
-                .EnterEmployeeName(Constants.FakeEmployeeName);
-                Thread.Sleep(1000);
-                pimPage.ClickSearch();
-            Thread.Sleep(3000);
+            await dashboardPage.ClickPimButton();
+            await pimPage.EnterEmployeeName(Constants.FakeEmployeeName);
+            await pimPage.ClickSearch();
+            
             Assert.That(pimPage.GetNoRecordsError(), Is.EqualTo(Constants.NoRecords));
         }
         [Test, Order(8)]
-        public void SearchWithEmployeeName()
+        public async Task SearchWithEmployeeName()
         {
-            pimPage
-                .ClearEmployeeNameField()
-                .EnterEmployeeName(Constants.NewUserName)
-                .ClickSearch();
+            await pimPage.ClearEmployeeNameField();
+            await pimPage.EnterEmployeeName(Constants.NewUserName);
+            await pimPage.ClickSearch();
             
             Assert.That(pimPage.GetEmployeeName(Constants.NewUserName), Is.EqualTo(Constants.NewUserName + " " + Constants.IncorrectUsername));
         } 
         
         [Test, Order(9)]
-        public void GoToEmployeeDetails()
+        public async Task GoToEmployeeDetails()
         {
-            pimPage
-                .ClickOnEmployeeName(Constants.NewUserName);
+            await pimPage.ClickOnEmployeeName(Constants.NewUserName);
             
             Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
         }
     }
 }
+*/

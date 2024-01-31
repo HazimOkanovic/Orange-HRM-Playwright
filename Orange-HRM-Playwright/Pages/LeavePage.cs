@@ -1,11 +1,12 @@
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
-    public class LeavePage : BasePage
+    public class LeavePage
     {
+        private readonly IPage page;
         private readonly ILocator pageTitle;
         private readonly ILocator assignLeaveButton;
         private readonly ILocator leaveTypeButton;
@@ -16,8 +17,9 @@ namespace Orange_HRM_Playwright.Pages
         private readonly ILocator okButton;
         private readonly ILocator myLeaveButton;
     
-        public LeavePage(IPage page) : base(page)
+        public LeavePage(IPage page)
         {
+            this.page = page;
             pageTitle = page.Locator("(//span//h6)[1]");
             leaveTypeButton = page.Locator("//div//i[contains(@class, 'oxd-select-text--arrow')]");
             assignLeaveButton = page.Locator("//ul//li//a[contains(text(), 'Assign Leave')]");
@@ -29,98 +31,85 @@ namespace Orange_HRM_Playwright.Pages
             myLeaveButton = page.Locator("//ul//li//a[contains(text(), 'My Leave')]");
         }
         
-        public string GetLeaveTitle()
+        public async Task<string> GetLeaveTitle()
         {
-            return GetText(pageTitle);
+            return await pageTitle.InnerTextAsync();
         }
 
-        public string GetAssignLeaveTitle()
+        public async Task<string> GetAssignLeaveTitle()
         {
-            return GetText(assignLeaveTitle);
+            return await assignLeaveTitle.InnerTextAsync();
         }
 
-        public string GetCardTitle()
+        public async Task<string> GetCardTitle()
         {
-            return GetText(cardTitle);
+            return await cardTitle.InnerTextAsync();
         }
 
-        public string GetCustomError(int fieldNumber)
+        public async Task<string> GetCustomError(int fieldNumber)
         {
             string element = "(//div//span[contains(@class, 'oxd-input-group__message')])[{0}]";
             element = String.Format(element, fieldNumber);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
 
-        public LeavePage ClickOkButton()
+        public async Task ClickOkButton()
         {
-            ClickElement(okButton);
-            return this;
+            await okButton.ClickAsync();
         }
 
-        public LeavePage ClickMyLeave()
+        public async Task ClickMyLeave()
         {
-            ClickElement(myLeaveButton);
-            return this;
+            await myLeaveButton.ClickAsync();
         }
 
-        public LeavePage ClickAssignLeave()
+        public async Task ClickAssignLeave()
         {
-            ClickElement(assignLeaveButton);
-            return this;
+            await assignLeaveButton.ClickAsync();
         }
         
-        public LeavePage EnterEmployeeName(string name)
+        public async Task EnterEmployeeName(string name)
         {
-            page.GetByPlaceholder("Type for hints...").FillAsync(name);
-            return this;
+            await page.GetByPlaceholder("Type for hints...").FillAsync(name);
         }
         
-        public LeavePage ClickOnEmployeeNameSuggestion()
+        public async Task ClickOnEmployeeNameSuggestion()
         {
-            Thread.Sleep(1000);
-            page.Locator("'Fiona Grace'").ClickAsync();
-            return this;
+            await page.Locator("'Fiona Grace'").ClickAsync();
         }
 
-        public LeavePage ClickOnLeaveType()
+        public async Task ClickOnLeaveType()
         {
-            ClickElement(leaveTypeButton);
-            return this;
+            await leaveTypeButton.InnerTextAsync();
         }
         
-        public string GetUserNameAfterSave(string user)
+        public async Task<string> GetUserNameAfterSave(string user)
         {
             string element = "//div//div[contains(text(), '{0}')]";
             element = String.Format(element, user);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
 
-        public LeavePage ClickOnFromDate()
+        public async Task ClickOnFromDate()
         {
-            ClickElement(fromDateButton);
-            return this;
+            await fromDateButton.ClickAsync();
         }
         
-        public LeavePage ChooseLeaveType()
+        public async Task ChooseLeaveType()
         {
-            Thread.Sleep(500);
-            page.Locator("'Personal'").ClickAsync();
-            return this;
+            await page.Locator("'Personal'").ClickAsync();
         }
         
-        public LeavePage ChooseFromDate()
+        public async Task ChooseFromDate()
         {
-            Thread.Sleep(500);
-            page.Locator("'22'").ClickAsync();
-            return this;
+            await page.Locator("'22'").ClickAsync();
         }
 
-        public LeavePage ClickApplyButton()
+        public async Task ClickApplyButton()
         {
-            ClickElement(assignButton);
-            return this;
+            await assignButton.ClickAsync();
         }
     }
 }
