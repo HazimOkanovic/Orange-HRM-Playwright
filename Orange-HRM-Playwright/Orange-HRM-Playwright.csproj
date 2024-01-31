@@ -118,9 +118,6 @@
         <Compile Include="Pages\DashboardPage.cs" />
         <Compile Include="Pages\LandingPage.cs" />
         <Compile Include="Pages\LeavePage.cs" />
-        <Compile Include="Pages\MaintenancePage.cs" />
-        <Compile Include="Pages\MyInfoPage.cs" />
-        <Compile Include="Pages\PerformancePage.cs" />
         <Compile Include="Pages\PIMPage.cs" />
         <Compile Include="Pages\RecruitmentPage.cs" />
         <Compile Include="Pages\TimePage.cs" />

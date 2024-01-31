@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
@@ -37,123 +38,113 @@ namespace Orange_HRM_Playwright.Pages
             noRecordsLabel = page.Locator("(//div//span[@class = 'oxd-text oxd-text--span'])[1]");
         }
         
-        public string GetPimTitle()
+        public async Task<string> GetPimTitle()
         {
-            return GetText(pageTitle);
+            return await pageTitle.InnerTextAsync();
         }
 
-        public PIMPage EnterEmployeeName(string employeeName)
+        public async Task EnterEmployeeName(string employeeName)
         {
-            EnterText(employeeNameInput, employeeName);
-            return this;
+            await employeeNameInput.FillAsync(employeeName);
         }
 
-        public PIMPage ClearEmployeeNameField()
+        public async Task ClearEmployeeNameField()
         {
-            ClearField(employeeNameInput);
-            return this;
+            await employeeNameInput.ClearAsync();
         }
 
-        public PIMPage EnterEmployeeId(string id)
+        public async Task EnterEmployeeId(string id)
         {
-            EnterText(employeeIdInput, id);
-            return this;
+            await employeeIdInput.FillAsync(id);
         }
 
-        public PIMPage ClickSearch()
+        public async Task ClickSearch()
         {
-            ClickElement(searchButton);
-            return this;
+            await searchButton.ClickAsync();
         }
 
-        public string GetNoRecordsError()
+        public async Task<string> GetNoRecordsError()
         {
-            return GetText(noRecordsLabel);
+            return await noRecordsLabel.InnerTextAsync();
         }
-        public PIMPage ClickAddButton()
+        public async Task ClickAddButton()
         {
-            ClickElement(addButton);
-            return this;
-        }
-
-        public string GetPersonalDetails()
-        {
-            return GetText(personalDetails);
+            await addButton.ClickAsync();
         }
 
-        public PIMPage EnterFirstName(string firstName)
+        public async Task<string> GetPersonalDetails()
         {
-            EnterText(firstNameInput, firstName);
-            return this;
+            return await personalDetails.InnerTextAsync();
         }
 
-        public PIMPage EnterMiddleName(string middleName)
+        public async Task EnterFirstName(string firstName)
         {
-            EnterText(middleNameInput, middleName);
-            return this;
+            await firstNameInput.FillAsync(firstName);
         }
 
-        public PIMPage EnterLastName(string lastName)
+        public async Task EnterMiddleName(string middleName)
         {
-            EnterText(lastNameInput, lastName);
-            return this;
+            await middleNameInput.FillAsync(middleName);
         }
 
-        public string GetEmployeeId()
+        public async Task EnterLastName(string lastName)
         {
-            NewEmployeeId = GetText(employeeId);
+            await lastNameInput.FillAsync(lastName);
+        }
+
+        public async Task<string> GetEmployeeId()
+        {
+            NewEmployeeId = await employeeId.InnerTextAsync();
             return NewEmployeeId;
         }
 
-        public PIMPage ClickSave()
+        public async Task ClickSave()
         {
-            ClickElement(searchButton);
-            return this;
+            await searchButton.ClickAsync();
         }
 
-        public string GetEmployeeTitle()
+        public async Task<string> GetEmployeeTitle()
         {
-            return GetText(addEmployeeTitle);
+            return await addEmployeeTitle.InnerTextAsync();
         }
 
-        public string GetFirstName()
+        public async Task<string> GetFirstName()
         {
-            return GetText(firstNameInput);
+            return await firstNameInput.InnerTextAsync();
         }
 
-        public string GetMiddleName()
+        public async Task<string> GetMiddleName()
         {
-            return GetText(middleNameInput);
+            return await middleNameInput.InnerTextAsync();
         }
 
-        public string GetLastName()
+        public async Task<string> GetLastName()
         {
-            return GetText(lastNameInput);
+            return await lastNameInput.InnerTextAsync();
         }
         
-        public string GetEmployeeName(string user)
+        public async Task<string> GetEmployeeName(string user)
         {
             string element = "//div//div[contains(text(), '{0}')]";
             element = String.Format(element, user);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
 
-        public string GetCustomError(int errorNo)
+        public async Task<string> GetCustomError(int errorNo)
         {
             string element = "(//div//span[contains(@class, 'input-field-error')])[{0}]";
             element = String.Format(element, errorNo);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
         
-        public PIMPage ClickOnEmployeeName(string user)
+        public async Task ClickOnEmployeeName(string user)
         {
             string element = "//div//div[contains(text(), '{0}')]";
             element = String.Format(element, user);
             ILocator elementLocation = page.Locator(element);
-            ClickElement(elementLocation);
-            return this;
+            await elementLocation.ClickAsync();
         }
     }
 }
