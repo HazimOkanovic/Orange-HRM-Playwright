@@ -4,8 +4,9 @@ using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
-    public class PIMPage : BasePage
+    public class PIMPage
     {
+        private readonly IPage page;
         private readonly ILocator pageTitle;
         private readonly ILocator employeeNameInput;
         private readonly ILocator employeeIdInput;
@@ -22,8 +23,9 @@ namespace Orange_HRM_Playwright.Pages
 
         public string NewEmployeeId;
         
-        public PIMPage(IPage page) : base(page)
+        public PIMPage(IPage page)
         {
+            this.page = page;
             pageTitle = page.Locator("(//span//h6)[1]");
             employeeNameInput = page.Locator("(//div//input[contains(@placeholder, 'Type')])[1]");
             employeeIdInput = page.Locator("(//div//input[contains(@class, 'oxd-input')])[2]");

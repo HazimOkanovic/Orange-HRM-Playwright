@@ -1,26 +1,21 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Orange_HRM_Playwright.Pages;
 
 namespace Orange_HRM_Playwright.Tests
 {
     public class AdminTests : BaseTest
     {
-        private DashboardPage dashboardPage;
-        private AdminPage adminPage;
 
         [Test, Order(1)]
-        public void LogInTest()
+        public async Task LogInTest()
         {
-            landing
-                .ClearUsernameField()
-                .ClearPasswordField()
-                .EnterUserName(Constants.ValidUsername)
-                .EnterPassword(Constants.ValidPassword);
-                
-            dashboardPage = landing.ClickLoginButton();
             
-            Assert.That(dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
+            await landing.EnterUserName(Constants.ValidUsername);
+            await landing.EnterPassword(Constants.ValidPassword);
+            await landing.ClickLoginButton();
+
+            
+            Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
 
         [Test, Order(2)]

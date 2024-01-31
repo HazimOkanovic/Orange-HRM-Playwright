@@ -3,8 +3,9 @@ using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
-    public class DashboardPage : BasePage
+    public class DashboardPage
     {
+        private readonly IPage page;
         private readonly ILocator pageTitle;
         private readonly ILocator userDropdown;
         private readonly ILocator logOutButton;
@@ -20,8 +21,9 @@ namespace Orange_HRM_Playwright.Pages
         private readonly ILocator maintenanceButton;
         private readonly ILocator buzzButton;
         
-        public DashboardPage(IPage page) : base(page)
+        public DashboardPage(IPage page)
         {
+            this.page = page;
             pageTitle = page.Locator("//span//h6");
             userDropdown = page.Locator("//span//p[@class = 'oxd-userdropdown-name']");
             logOutButton = page.Locator("(//ul//li//a[@role = 'menuitem'])[4]");

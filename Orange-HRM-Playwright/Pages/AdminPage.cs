@@ -4,8 +4,9 @@ using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
-    public class AdminPage : BasePage
+    public class AdminPage
     {
+        private readonly IPage page;
         readonly ILocator pageTitle;
         readonly ILocator addButton;
         readonly ILocator addUserTitle;
@@ -27,8 +28,9 @@ namespace Orange_HRM_Playwright.Pages
         readonly ILocator employeeNameInputField;
         readonly ILocator employeeNameForClear;
         
-        public AdminPage(IPage page) : base(page)
+        public AdminPage(IPage page)
         {
+            this.page = page;
             pageTitle = page.Locator("(//span//h6)[1]");
             addButton = page.Locator("(//div//button[contains(@class, 'oxd-button--secondary')])[2]");
             addUserTitle = page.Locator("(//div//h6)[2]");
@@ -156,12 +158,12 @@ namespace Orange_HRM_Playwright.Pages
             return await confirmPasswordError.InnerTextAsync();
         }
         
-        public string GetCustomError(int fieldNumber)
+        public async Task<string> GetCustomError(int fieldNumber)
         {
             string element = "(//div//span[contains(@class, 'input-field-error')])[{0}]";
             element = String.Format(element, fieldNumber);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
 
         public async Task ClickSave()
@@ -169,12 +171,12 @@ namespace Orange_HRM_Playwright.Pages
             await this.saveButton.ClickAsync();
         }
 
-        public string GetUserNameAfterSave(string user)
+        public async Task<string> GetUserNameAfterSave(string user)
         {
             string element = "//div//div[contains(text(), '{0}')]";
             element = String.Format(element, user);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
 
         public async Task EnterUsernameForSearch(string username)

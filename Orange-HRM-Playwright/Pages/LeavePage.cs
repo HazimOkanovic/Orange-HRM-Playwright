@@ -4,8 +4,9 @@ using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
-    public class LeavePage : BasePage
+    public class LeavePage
     {
+        private readonly IPage page;
         private readonly ILocator pageTitle;
         private readonly ILocator assignLeaveButton;
         private readonly ILocator leaveTypeButton;
@@ -16,8 +17,9 @@ namespace Orange_HRM_Playwright.Pages
         private readonly ILocator okButton;
         private readonly ILocator myLeaveButton;
     
-        public LeavePage(IPage page) : base(page)
+        public LeavePage(IPage page)
         {
+            this.page = page;
             pageTitle = page.Locator("(//span//h6)[1]");
             leaveTypeButton = page.Locator("//div//i[contains(@class, 'oxd-select-text--arrow')]");
             assignLeaveButton = page.Locator("//ul//li//a[contains(text(), 'Assign Leave')]");

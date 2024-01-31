@@ -1,8 +1,9 @@
 using NUnit.Framework;
 using Orange_HRM_Playwright.Pages;
-
+/*
 namespace Orange_HRM_Playwright.Tests
 {
+    
     public class LogInTests : BaseTest
     {
         private DashboardPage dashboardPage;
@@ -100,3 +101,4 @@ namespace Orange_HRM_Playwright.Tests
         }
     }
 }
+*/

@@ -5,8 +5,9 @@ using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
 {
-    public class LandingPage : BasePage
+    public class LandingPage
     {
+        private readonly IPage page;
         private readonly ILocator userNameInput;
         private readonly ILocator passwordInput;
         private readonly ILocator loginButton;
@@ -14,8 +15,9 @@ namespace Orange_HRM_Playwright.Pages
         private readonly ILocator credentialsError;
         private readonly ILocator pageTitle;
             
-            public LandingPage(IPage page) : base(page)
+        public LandingPage(IPage page)
         {
+            this.page = page;
             userNameInput = page.Locator("//div//input[@name = 'username']");
             passwordInput = page.Locator("//div//input[@name = 'password']");
             loginButton = page.Locator("//div//button[@type= 'submit']");

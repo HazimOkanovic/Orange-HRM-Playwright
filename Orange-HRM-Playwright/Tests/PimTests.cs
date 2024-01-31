@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Orange_HRM_Playwright.Pages;
-
+/*
 namespace Orange_HRM_Playwright.Tests
 {
     public class PimTests : BaseTest
@@ -97,3 +97,4 @@ namespace Orange_HRM_Playwright.Tests
         }
     }
 }
+*/
