@@ -115,9 +115,7 @@
         <Compile Include="Constants.cs" />
         <Compile Include="Pages\AdminPage.cs" />
         <Compile Include="Pages\BasePage.cs" />
-        <Compile Include="Pages\BuzzPage.cs" />
         <Compile Include="Pages\DashboardPage.cs" />
-        <Compile Include="Pages\DirectoryPage.cs" />
         <Compile Include="Pages\LandingPage.cs" />
         <Compile Include="Pages\LeavePage.cs" />
         <Compile Include="Pages\MaintenancePage.cs" />

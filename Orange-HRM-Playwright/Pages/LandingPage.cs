@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Playwright;
 
 namespace Orange_HRM_Playwright.Pages
@@ -23,57 +24,51 @@ namespace Orange_HRM_Playwright.Pages
             pageTitle = page.Locator("//div//h5[contains(@class, login-title)]");
         }
 
-        public LandingPage EnterUserName(string userName)
+        public async Task EnterUserName(string userName)
         {
-            page.GetByPlaceholder("Username").FillAsync(userName);
-            Thread.Sleep(1000);
-            return this;
+            await page.GetByPlaceholder("Username").FillAsync(userName);
         }
 
-        public LandingPage EnterPassword(string password)
+        public async Task EnterPassword(string password)
         {
-            page.GetByPlaceholder("password").FillAsync(password);
-            return this;
+            await page.GetByPlaceholder("password").FillAsync(password);
         }
 
-        public LandingPage ClearUsernameField()
+        public async Task ClearUsernameField()
         {
-            ClearField(userNameInput);
-            return this;
+            await userNameInput.ClearAsync();
         }
 
-        public LandingPage ClearPasswordField()
+        public async Task ClearPasswordField()
         {
-            ClearField(passwordInput);
-            return this;
+            await passwordInput.ClearAsync();
         }
 
-        public string GetUserNameError()
+        public async Task<string> GetUserNameError()
         {
-            return GetText(usernameError);
+            return await usernameError.InnerTextAsync();
         }
 
-        public string GetPasswordError(int locatorPlace)
+        public async Task<string> GetPasswordError(int locatorPlace)
         {
             string element = "(//div//span)[{0}]";
             element = String.Format(element, locatorPlace);
             ILocator elementLocation = page.Locator(element);
-            return GetText(elementLocation);
+            return await elementLocation.InnerTextAsync();
         }
 
-        public string GetTitle()
+        public async Task<string> GetTitle()
         {
-            return GetText(pageTitle);
+            return await pageTitle.InnerTextAsync();
         }
 
-        public string GetCredentialsError()
+        public async Task<string> GetCredentialsError()
         {
-            return GetText(credentialsError);
+            return await credentialsError.InnerTextAsync();
         }
-        public DashboardPage ClickLoginButton()
+        public async Task ClickLoginButton()
         {
-            ClickElement(loginButton);
-            return new DashboardPage(page);
+            await loginButton.ClickAsync();
         }
     }
 }
