@@ -1,27 +1,20 @@
-using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Orange_HRM_Playwright.Pages;
-/*
+
 namespace Orange_HRM_Playwright.Tests
 {
     public class PimTests : BaseTest
     {
-        private DashboardPage dashboardPage;
-        private PIMPage pimPage;
-
         [Test, Order(1)]
-        public void LogInTest()
+        public async Task LogInTest()
         {
-            landing
-                .ClearUsernameField()
-                .ClearPasswordField()
-                .EnterUserName(Constants.ValidUsername)
-                .EnterPassword(Constants.ValidPassword);
-                
-            dashboardPage = landing.ClickLoginButton();
+            await landingPage.ClearUsernameField();
+            await landingPage.ClearPasswordField();
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.EnterPassword(Constants.ValidPassword);
             
-            Assert.That(dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
+            Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
 
         [Test, Order(2)]
@@ -29,7 +22,7 @@ namespace Orange_HRM_Playwright.Tests
         {
             await dashboardPage.ClickPimButton();
             
-            Assert.That(pimPage.GetPimTitle(), Is.EqualTo(Constants.PimPageTitle));
+            Assert.That(await pimPage.GetPimTitle(), Is.EqualTo(Constants.PimPageTitle));
         }
 
         [Test, Order(3)]
@@ -37,7 +30,7 @@ namespace Orange_HRM_Playwright.Tests
         {
             await pimPage.ClickAddButton();
             
-            Assert.That(pimPage.GetEmployeeTitle(), Is.EqualTo(Constants.AddEmployeeTitle));
+            Assert.That(await pimPage.GetEmployeeTitle(), Is.EqualTo(Constants.AddEmployeeTitle));
         }
 
         [Test, Order(4)]
@@ -45,8 +38,8 @@ namespace Orange_HRM_Playwright.Tests
         {
             await pimPage.ClickSave();
             
-            Assert.That(pimPage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(pimPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await pimPage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await pimPage.GetCustomError(2), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(5)]
@@ -55,7 +48,7 @@ namespace Orange_HRM_Playwright.Tests
             await pimPage.EnterFirstName(Constants.NewUserName);
             await pimPage.ClickSave();
 
-            Assert.That(pimPage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await pimPage.GetCustomError(1), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(6)]
@@ -66,7 +59,7 @@ namespace Orange_HRM_Playwright.Tests
             await pimPage.ClickSave();
             await pimPage.GetEmployeeId();
             
-            Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
+            Assert.That(await pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
         }
 
         [Test, Order(7)]
@@ -76,7 +69,7 @@ namespace Orange_HRM_Playwright.Tests
             await pimPage.EnterEmployeeName(Constants.FakeEmployeeName);
             await pimPage.ClickSearch();
             
-            Assert.That(pimPage.GetNoRecordsError(), Is.EqualTo(Constants.NoRecords));
+            Assert.That(await pimPage.GetNoRecordsError(), Is.EqualTo(Constants.NoRecords));
         }
         [Test, Order(8)]
         public async Task SearchWithEmployeeName()
@@ -85,7 +78,7 @@ namespace Orange_HRM_Playwright.Tests
             await pimPage.EnterEmployeeName(Constants.NewUserName);
             await pimPage.ClickSearch();
             
-            Assert.That(pimPage.GetEmployeeName(Constants.NewUserName), Is.EqualTo(Constants.NewUserName + " " + Constants.IncorrectUsername));
+            Assert.That(await pimPage.GetEmployeeName(Constants.NewUserName), Is.EqualTo(Constants.NewUserName + " " + Constants.IncorrectUsername));
         } 
         
         [Test, Order(9)]
@@ -93,8 +86,7 @@ namespace Orange_HRM_Playwright.Tests
         {
             await pimPage.ClickOnEmployeeName(Constants.NewUserName);
             
-            Assert.That(pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
+            Assert.That(await pimPage.GetPersonalDetails(), Is.EqualTo(Constants.PersonalDetails));
         }
     }
 }
-*/

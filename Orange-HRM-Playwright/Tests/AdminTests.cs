@@ -7,9 +7,9 @@ namespace Orange_HRM_Playwright.Tests
         [Test, Order(1)]
         public async Task LogInTest()
         {
-            await landing.EnterUserName(Constants.ValidUsername);
-            await landing.EnterPassword(Constants.ValidPassword);
-            await landing.ClickLoginButton();
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.EnterPassword(Constants.ValidPassword);
+            await landingPage.ClickLoginButton();
             
             Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }

@@ -8,10 +8,10 @@ namespace Orange_HRM_Playwright.Tests
         [Test, Order(1)]
         public async Task LogInTest()
         {
-            await landing.ClearUsernameField();
-            await landing.ClearPasswordField();
-            await landing.EnterUserName(Constants.ValidUsername);
-            await landing.EnterPassword(Constants.ValidPassword);
+            await landingPage.ClearUsernameField();
+            await landingPage.ClearPasswordField();
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.EnterPassword(Constants.ValidPassword);
             
             Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
