@@ -1,149 +1,118 @@
-using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
-using Orange_HRM_Playwright.Pages;
 
 namespace Orange_HRM_Playwright.Tests
 {
     public class LeaveTests : BaseTest
     {
-        private DashboardPage dashboardPage;
-        private AdminPage adminPage;
-        private LeavePage leavePage;
-        /*
         [Test, Order(1)]
-        public void LogInTest()
+        public async Task LogInTest()
         {
-            landing
-                .ClearUsernameField()
-                .ClearPasswordField()
-                .EnterUserName(Constants.ValidUsername)
-                .EnterPassword(Constants.ValidPassword);
-                
-            dashboardPage = landing.ClickLoginButton();
+            await landing.ClearUsernameField();
+            await landing.ClearPasswordField();
+            await landing.EnterUserName(Constants.ValidUsername);
+            await landing.EnterPassword(Constants.ValidPassword);
             
-            Assert.That(dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
+            Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
 
         [Test, Order(2)]
-        public void GoToAdminPageTest()
+        public async Task GoToAdminPageTest()
         {
-            adminPage = dashboardPage.ClickAdminButton();
+            await dashboardPage.ClickAdminButton();
             
-            Thread.Sleep(1500);
-            
-            Assert.That(adminPage.GetAdminTitle(), Is.EqualTo(Constants.AdminPageTitle));
+            Assert.That(await adminPage.GetAdminTitle(), Is.EqualTo(Constants.AdminPageTitle));
         }
 
         [Test, Order(3)]
-        public void ClickAddUser()
+        public async Task ClickAddUser()
         {
-            adminPage
-                .ClickAddUser();
+            await adminPage.ClickAddUser();
             
-            Thread.Sleep(1500);
-            
-            Assert.That(adminPage.GetAddUserTitle(), Is.EqualTo(Constants.NewUserTitle));
+            Assert.That(await adminPage.GetAddUserTitle(), Is.EqualTo(Constants.NewUserTitle));
         }
 
         [Test, Order(4)]
-        public void CreateNewUserTest()
+        public async Task CreateNewUserTest()
         {
-            adminPage
-                .SelectUserRole();
-                Thread.Sleep(500);
-                adminPage.EnterEmployeeName(Constants.ValidEmployeeName);
-                    Thread.Sleep(500);
-                adminPage.ClickOnEmployeeNameSuggestion()
-                .SelectUserStatus()
-                .EnterUserName(Constants.NewUserName);
-                Thread.Sleep(750);
-                adminPage.EnterPassword(Constants.NewRecordValidPassword);
-                    Thread.Sleep(1000);
-                    adminPage.EnterConfirmPassword(Constants.NewRecordValidPassword);
-                    Thread.Sleep(500);
-                adminPage.ClickSave();
+            await adminPage.SelectUserRole();
+            await adminPage.EnterEmployeeName(Constants.ValidEmployeeName);
+            await adminPage.ClickOnEmployeeNameSuggestion();
+            await adminPage.SelectUserStatus();
+            await adminPage.EnterUserName(Constants.NewUserName);
+            await adminPage.EnterPassword(Constants.NewRecordValidPassword);
+            await adminPage.EnterConfirmPassword(Constants.NewRecordValidPassword);
+            await adminPage.ClickSave();
             
-            Assert.That(adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
+            Assert.That(await adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
         }
 
         [Test, Order(5)]
-        public void GoToLeavePage()
+        public async Task GoToLeavePage()
         {
-            leavePage = dashboardPage
-                .ClickLeaveButton();
-            Thread.Sleep(1000);
-            Assert.That(leavePage.GetLeaveTitle(), Is.EqualTo(Constants.LeavePageTitle));
+            await dashboardPage.ClickLeaveButton();
+            
+            Assert.That(await leavePage.GetLeaveTitle(), Is.EqualTo(Constants.LeavePageTitle));
         }
 
         [Test, Order(6)]
-        public void ClickAssignLeaveButton()
+        public async Task ClickAssignLeaveButton()
         {
-            leavePage
-                .ClickAssignLeave();
+            await leavePage.ClickAssignLeave();
             
-            Thread.Sleep(1500);
-            
-            Assert.That(leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.AssignLeaveTitle));
+            Assert.That(await leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.AssignLeaveTitle));
         }
 
         [Test, Order(7)]
-        public void AllFieldsEmptyTest()
+        public async Task AllFieldsEmptyTest()
         {
-            leavePage
-                .ClickApplyButton();
+            await leavePage.ClickApplyButton();
             
-            Assert.That(leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(leavePage.GetCustomError(3), Is.EqualTo(Constants.Required));
-            Assert.That(leavePage.GetCustomError(4), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(4), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(8)]
-        public void EnterOneFieldTest()
+        public async Task EnterOneFieldTest()
         {
-            leavePage
-                .EnterEmployeeName(Constants.ValidEmployeeName)
-                .ClickOnEmployeeNameSuggestion();
+            await leavePage.EnterEmployeeName(Constants.ValidEmployeeName);
+            await leavePage.ClickOnEmployeeNameSuggestion();
             
-            Assert.That(leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(leavePage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(3), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(9)]
-        public void PopulateTwoFieldsTest()
+        public async Task PopulateTwoFieldsTest()
         {
-            leavePage
-                .ClickOnLeaveType()
-                .ChooseLeaveType();
+            await leavePage.ClickOnLeaveType();
+            await leavePage.ChooseLeaveType();
             
-            Assert.That(leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await leavePage.GetCustomError(2), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(10)]
-        public void SuccessfulAssignLeaveTest()
+        public async Task SuccessfulAssignLeaveTest()
         {
-            leavePage
-                .ClickOnFromDate()
-                .ChooseFromDate()
-                .ClickAssignLeave();
+            await leavePage.ClickOnFromDate();
+            await leavePage.ChooseFromDate();
+            await leavePage.ClickAssignLeave();
             
-            Assert.That(leavePage.GetCardTitle(), Is.EqualTo(Constants.ConfirmLeave));
+            Assert.That(await leavePage.GetCardTitle(), Is.EqualTo(Constants.ConfirmLeave));
         }
 
         [Test, Order(11)]
-        public void GoToMyLeaveAndCheckIfRecordSavedTest()
+        public async Task GoToMyLeaveAndCheckIfRecordSavedTest()
         {
-            leavePage
-                .ClickOkButton()
-                .ClickMyLeave();
+            await leavePage.ClickOkButton();
+            await leavePage.ClickMyLeave();
             
-            Thread.Sleep(1500);
-            
-            Assert.That(leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.LeaveList));
-            Assert.That(leavePage.GetUserNameAfterSave(Constants.ValidEmployeeName), Is.EqualTo(Constants.ValidEmployeeName));
+            Assert.That(await leavePage.GetAssignLeaveTitle(), Is.EqualTo(Constants.LeaveList));
+            Assert.That(await leavePage.GetUserNameAfterSave(Constants.ValidEmployeeName), Is.EqualTo(Constants.ValidEmployeeName));
         }
-        */
     }
 }

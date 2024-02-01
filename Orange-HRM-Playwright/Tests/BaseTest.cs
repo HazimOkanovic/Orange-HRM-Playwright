@@ -12,6 +12,7 @@ namespace Orange_HRM_Playwright.Tests
         public LandingPage landing;
         public DashboardPage dashboardPage;
         public AdminPage adminPage;
+        public LeavePage leavePage;
         private readonly IBrowserContext context;
         
         
@@ -25,6 +26,7 @@ namespace Orange_HRM_Playwright.Tests
             landing = new LandingPage(pageTest);
             dashboardPage = new DashboardPage(pageTest);
             adminPage = new AdminPage(pageTest);
+            leavePage = new LeavePage(pageTest);
         }
 
         [OneTimeTearDown]
