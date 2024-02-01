@@ -1,19 +1,15 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
-
 namespace Orange_HRM_Playwright.Tests
 {
     public class AdminTests : BaseTest
     {
-
         [Test, Order(1)]
         public async Task LogInTest()
         {
-            
-            await landing.EnterUserName(Constants.ValidUsername);
-            await landing.EnterPassword(Constants.ValidPassword);
-            await landing.ClickLoginButton();
-
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.EnterPassword(Constants.ValidPassword);
+            await landingPage.ClickLoginButton();
             
             Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
@@ -23,7 +19,7 @@ namespace Orange_HRM_Playwright.Tests
         {
             await dashboardPage.ClickAdminButton();
             
-            Assert.That(adminPage.GetAdminTitle(), Is.EqualTo(Constants.AdminPageTitle));
+            Assert.That(await adminPage.GetAdminTitle(), Is.EqualTo(Constants.AdminPageTitle));
         }
 
         [Test, Order(3)]
@@ -31,7 +27,7 @@ namespace Orange_HRM_Playwright.Tests
         {
             await adminPage.ClickAddUser();
             
-            Assert.That(adminPage.GetAddUserTitle(), Is.EqualTo(Constants.NewUserTitle));
+            Assert.That(await adminPage.GetAddUserTitle(), Is.EqualTo(Constants.NewUserTitle));
         }
 
         [Test, Order(4)]
@@ -39,12 +35,12 @@ namespace Orange_HRM_Playwright.Tests
         {
             await adminPage.ClickSave();
             
-            Assert.That(adminPage.GetUserRoleError(), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetEmployeeNameError(), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetStatusError(), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetUserNameError(), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetPasswordError(), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetConfirmPasswordError(), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetUserRoleError(), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetEmployeeNameError(), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetStatusError(), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetUserNameError(), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetPasswordError(), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetConfirmPasswordError(), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(5)]
@@ -52,11 +48,11 @@ namespace Orange_HRM_Playwright.Tests
         {
             await adminPage.SelectUserRole();
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(4), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(5), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(4), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(5), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(6)]
@@ -65,11 +61,11 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.EnterEmployeeName(Constants.InvalidEmployeeName);
             await adminPage.ClickOnEmployeeName();
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.Invalid));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(4), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(5), Is.EqualTo(Constants.Required)); 
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.Invalid));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(4), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(5), Is.EqualTo(Constants.Required)); 
         }
 
         [Test, Order(7)]
@@ -79,10 +75,10 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.EnterEmployeeName(Constants.ValidEmployeeName);
             await adminPage.ClickOnEmployeeNameSuggestion();
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(4), Is.EqualTo(Constants.Required)); 
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(4), Is.EqualTo(Constants.Required)); 
         }
 
         [Test, Order(8)]
@@ -90,9 +86,9 @@ namespace Orange_HRM_Playwright.Tests
         {
             await adminPage.SelectUserStatus();
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(9)]
@@ -101,9 +97,9 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.EnterUserName(Constants.ShortUsername);
             await adminPage.ClickSave();
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.ShortUserNameError));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.ShortUserNameError));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(3), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(10)]
@@ -112,8 +108,8 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.ClearUserNameField();
             await adminPage.EnterUserName(Constants.NewUserName);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
         }
      
         [Test, Order(11)]
@@ -121,8 +117,8 @@ namespace Orange_HRM_Playwright.Tests
         {
             await adminPage.EnterPassword(Constants.NewRecordInvalidPassword);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.PasswordError));
-            Assert.That(adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.PasswordError));
+            Assert.That(await adminPage.GetCustomError(2), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(12)]
@@ -132,7 +128,7 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.EnterPassword(Constants.NewRecordValidPassword);
             await adminPage.EnterConfirmPassword(Constants.NewRecordInvalidPassword);
             
-            Assert.That(adminPage.GetCustomError(1), Is.EqualTo(Constants.PasswordsDontMatchError));
+            Assert.That(await adminPage.GetCustomError(1), Is.EqualTo(Constants.PasswordsDontMatchError));
         }
 
         [Test, Order(13)]
@@ -142,7 +138,7 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.EnterConfirmPassword(Constants.NewRecordValidPassword);
             await adminPage.ClickSave();
             
-            Assert.That(adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
+            Assert.That(await adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
         }
 
         [Test, Order(14)]
@@ -151,7 +147,7 @@ namespace Orange_HRM_Playwright.Tests
             await adminPage.EnterUsernameForSearch(Constants.NewUserName);
             await adminPage.ClickSave();
             
-            Assert.That(adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
+            Assert.That(await adminPage.GetUserNameAfterSave(Constants.NewUserName), Is.EqualTo(Constants.NewUserName));
         }
     }
 }

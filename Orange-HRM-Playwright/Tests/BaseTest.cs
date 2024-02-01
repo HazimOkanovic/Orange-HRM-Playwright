@@ -9,9 +9,11 @@ namespace Orange_HRM_Playwright.Tests
     public class BaseTest : PageTest
     {
         protected IPage pageTest;
-        public LandingPage landing;
+        public LandingPage landingPage;
         public DashboardPage dashboardPage;
         public AdminPage adminPage;
+        public LeavePage leavePage;
+        public PIMPage pimPage;
         private readonly IBrowserContext context;
         
         
@@ -22,15 +24,17 @@ namespace Orange_HRM_Playwright.Tests
             var browser = await playWrightTool.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
             pageTest = await browser.NewPageAsync();
             await pageTest.GotoAsync("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-            landing = new LandingPage(pageTest);
+            landingPage = new LandingPage(pageTest);
             dashboardPage = new DashboardPage(pageTest);
             adminPage = new AdminPage(pageTest);
+            leavePage = new LeavePage(pageTest);
+            pimPage = new PIMPage(pageTest);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            Page.CloseAsync();
+            pageTest.CloseAsync();
         }
     }
 }

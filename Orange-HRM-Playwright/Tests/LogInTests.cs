@@ -1,104 +1,91 @@
+using System.Threading.Tasks;
 using NUnit.Framework;
-using Orange_HRM_Playwright.Pages;
-/*
+
 namespace Orange_HRM_Playwright.Tests
 {
     
     public class LogInTests : BaseTest
     {
-        private DashboardPage dashboardPage;
-
         [Test, Order(1)]
-        public void LogInWithoutCredentialsTest()
+        public async Task LogInWithoutCredentialsTest()
         {
-            landing
-                .ClickLoginButton();
+            await landingPage.ClickLoginButton();
             
-            Assert.That(landing.GetUserNameError(), Is.EqualTo(Constants.Required));
-            Assert.That(landing.GetPasswordError(2), Is.EqualTo(Constants.Required));
+            Assert.That(await landingPage.GetUserNameError(), Is.EqualTo(Constants.Required));
+            Assert.That(await landingPage.GetPasswordError(2), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(2)]
-        public void LogInWithoutUsernameTest()
+        public async Task LogInWithoutUsernameTest()
         {
-            landing
-                .EnterPassword(Constants.ValidPassword)
-                .ClickLoginButton();
+            await landingPage.EnterPassword(Constants.ValidPassword);
+            await landingPage.ClickLoginButton();
             
-            Assert.That(landing.GetUserNameError(), Is.EqualTo(Constants.Required));
+            Assert.That(await landingPage.GetUserNameError(), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(3)]
-        public void LogInWithoutPasswordTest()
+        public async Task LogInWithoutPasswordTest()
         {
-            landing
-                .ClearPasswordField()
-                .EnterUserName(Constants.ValidUsername)
-                .ClickLoginButton();
+            await landingPage.ClearPasswordField();
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.ClickLoginButton();
             
-            Assert.That(landing.GetPasswordError(1), Is.EqualTo(Constants.Required));
+            Assert.That(await landingPage.GetPasswordError(1), Is.EqualTo(Constants.Required));
         }
 
         [Test, Order(4)]
-        public void IncorrectUsernameTest()
+        public async Task IncorrectUsernameTest()
         {
-            landing
-                .ClearUsernameField()
-                .EnterUserName(Constants.IncorrectUsername)
-                .EnterPassword(Constants.ValidPassword)
-                .ClickLoginButton();
+            await landingPage.ClearUsernameField();
+            await landingPage.EnterUserName(Constants.IncorrectUsername);
+            await landingPage.EnterPassword(Constants.ValidPassword);
+            await landingPage.ClickLoginButton();
             
-            Assert.That(landing.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
+            Assert.That(await landingPage.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
         }
 
         [Test, Order(5)]
-        public void IncorrectPasswordTest()
+        public async Task IncorrectPasswordTest()
         {
-            landing
-                .ClearUsernameField()
-                .ClearPasswordField()
-                .EnterUserName(Constants.ValidUsername)
-                .EnterPassword(Constants.IncorrectPassword)
-                .ClickLoginButton();
+            await landingPage.ClearUsernameField();
+            await landingPage.ClearPasswordField();
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.EnterPassword(Constants.IncorrectPassword);
+            await landingPage.ClickLoginButton();
             
-            Assert.That(landing.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
+            Assert.That(await landingPage.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
         }
 
         [Test, Order(6)]
-        public void IncorrectUsernameAndPasswordTest()
+        public async Task IncorrectUsernameAndPasswordTest()
         {
-            landing
-                .ClearUsernameField()
-                .ClearPasswordField()
-                .EnterUserName(Constants.IncorrectUsername)
-                .EnterPassword(Constants.IncorrectPassword)
-                .ClickLoginButton();
+            await landingPage.ClearUsernameField();
+            await landingPage.ClearPasswordField();
+            await landingPage.EnterUserName(Constants.IncorrectUsername);
+            await landingPage.EnterPassword(Constants.IncorrectPassword);
+            await landingPage.ClickLoginButton();
             
-            Assert.That(landing.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
+            Assert.That(await landingPage.GetCredentialsError(), Is.EqualTo(Constants.CredentialsError));
         }
         
         [Test, Order(7)]
-        public void SuccessfulLogInTest()
+        public async Task SuccessfulLogInTest()
         {
-            landing
-                .ClearUsernameField()
-                .ClearPasswordField()
-                .EnterUserName(Constants.ValidUsername)
-                .EnterPassword(Constants.ValidPassword);
-                
-            dashboardPage = landing.ClickLoginButton();
+            await landingPage.ClearUsernameField();
+            await landingPage.ClearPasswordField();
+            await landingPage.EnterUserName(Constants.ValidUsername);
+            await landingPage.EnterPassword(Constants.ValidPassword);
             
-            Assert.That(dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
+            Assert.That(await dashboardPage.GetTitle(), Is.EqualTo(Constants.DashboardTitle));
         }
 
         [Test, Order(8)]
-        public void SuccessfulLogOutTest()
+        public async Task SuccessfulLogOutTest()
         {
-            dashboardPage
-                .LogOut();
+            await dashboardPage.LogOut();
             
-            Assert.That(landing.GetTitle(), Is.EqualTo(Constants.LoginTitle));
+            Assert.That(await landingPage.GetTitle(), Is.EqualTo(Constants.LoginTitle));
         }
     }
 }
-*/
